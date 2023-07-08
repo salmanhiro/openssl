@@ -246,6 +246,20 @@ In another terminal window, you can run a TLS client requesting one of the suppo
 
 	apps/openssl s_client -groups <KEX> -CAfile <SIG>_CA.crt
 
+#### Using Docker
+
+
+- Build Docker Compose using `docker-compose build`.
+- Run Docker Compose using `docker-compose up`.
+- Enter the Docker shell.
+- Run OpenSSL command on the container shell. For example:
+
+  ```bash
+  docker exec openssl-file-generator-1 openssl req -x509 -new -newkey dilithium3 -keyout /shared/dilithium3_CA.key -out /shared/dilithium3_CA.crt -nodes -subj "/CN=oqstest CA" -days 365
+  ```
+
+Make sure to point out the output file to the `/shared/` directory since it was mounted as a shared volume in Docker. Refer to the original documentation for general use of OpenSSL commands.
+
 #### CMS demo
 
 OpenSSL has facilities to perform signing operations pursuant to [RFC 5652](https://datatracker.ietf.org/doc/rfc5652). This fork can be used to perform such operations with quantum-safe algorithms.
